@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Argus — agent observability</title>
+<link rel="stylesheet" href="/style.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="eye">𝍌</span><b>ARGUS</b><span class="sub">all-seeing agent observability</span></div>
+  <div class="filters">
+    <select id="f-range" title="time range">
+      <option value="15m">last 15m</option><option value="1h" selected>last 1h</option><option value="6h">last 6h</option><option value="24h">last 24h</option><option value="7d">last 7d</option><option value="all">all time</option>
+    </select>
+    <select id="f-model"><option value="">all models</option></select>
+    <select id="f-agent"><option value="">all agents</option></select>
+    <select id="f-status"><option value="">any status</option><option value="ok">ok</option><option value="error">error</option></select>
+    <button id="f-clear" class="mini">clear</button>
+    <label class="auto"><input type="checkbox" id="f-auto" checked> auto</label>
+    <span id="live" class="live">● live</span>
+  </div>
+</header>
+<nav class="tabs">
+  <button data-tab="overview" class="active">Overview</button>
+  <button data-tab="traces">Traces</button>
+  <button data-tab="agents">Agents</button>
+  <button data-tab="tools">Tools</button>
+  <button data-tab="sessions">Sessions</button>
+  <button data-tab="issues">Issues <span id="issue-badge" class="badge"></span></button>
+  <button data-tab="alerts">Alerts <span id="alert-badge" class="badge"></span></button>
+</nav>
+<main>
+  <section id="tab-overview" class="pane active">
+    <div id="cards" class="cards"></div>
+    <div class="grid">
+      <div class="panel span2"><h3>Throughput &amp; errors</h3><canvas id="c-throughput"></canvas></div>
+      <div class="panel span2"><h3>Agent session duration over time (p50 / p95) <span class="hint">whole task-run, not per-call</span></h3><canvas id="c-latency"></canvas></div>
+      <div class="panel"><h3>Latency distribution</h3><canvas id="c-histogram"></canvas></div>
+      <div class="panel"><h3>Issue breakdown</h3><canvas id="c-issues"></canvas></div>
+      <div class="panel"><h3>Cost over time ($)</h3><canvas id="c-cost"></canvas></div>
+      <div class="panel"><h3>Tokens over time (in / out)</h3><canvas id="c-tokens"></canvas></div>
+      <div class="panel"><h3>Traces by model <span class="hint">click to filter</span></h3><canvas id="c-models"></canvas></div>
+      <div class="panel"><h3>Cost by model ($)</h3><canvas id="c-costmodel"></canvas></div>
+      <div class="panel span2"><h3>By tool <span class="hint">click to filter agent's tools</span></h3><canvas id="c-tools"></canvas></div>
+      <div class="panel span2"><h3>By agent <span class="hint">click to drill in</span></h3><canvas id="c-agents"></canvas></div>
+    </div>
+  </section>
+  <section id="tab-traces" class="pane">
+    <div class="bar"><input id="t-q" placeholder="search content…" /><span id="trace-count" class="muted"></span></div>
+    <div id="traces-table"></div>
+  </section>
+  <section id="tab-agents" class="pane"><div id="agents-table"></div></section>
+  <section id="tab-tools" class="pane"><div class="panel"><h3>Tool calls</h3><canvas id="c-tools2"></canvas></div><div id="tools-table"></div></section>
+  <section id="tab-sessions" class="pane"><div id="sessions-table"></div></section>
+  <section id="tab-issues" class="pane"><div class="panel"><h3>Issues by type</h3><canvas id="c-issues2"></canvas></div><div id="issues-list"></div></section>
+  <section id="tab-alerts" class="pane"><h3>Alert rules</h3><div id="rules-list"></div><h3>Recent alerts</h3><div id="alerts-list"></div></section>
+</main>
+<div id="drawer" class="hidden"><div class="drawer-head"><span id="drawer-title"></span><div><button id="drawer-replay" class="mini">▶ replay</button> <button id="drawer-close">✕</button></div></div><div id="drawer-body"></div></div>
+<script src="/app.js"></script>
+</body>
+</html>

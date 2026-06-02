@@ -1,0 +1,7 @@
+node_modules/
+argus.db
+argus.db-*
+*.db
+*.log
+.DS_Store
+.env

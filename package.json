@@ -1,0 +1,15 @@
+{
+  "name": "argus",
+  "version": "0.1.0",
+  "description": "Argus — the all-seeing open-source agent observability platform. Traces, analytics, monitoring, issue detection, and alerting for AI agents. OTel-native, single-service, SQLite, zero dependencies.",
+  "type": "module",
+  "bin": { "argus": "bin/argus.js" },
+  "scripts": {
+    "start": "node bin/argus.js",
+    "seed": "node seed.js"
+  },
+  "engines": { "node": ">=22" },
+  "files": ["bin", "src", "public", "sdk", "seed.js", "README.md"],
+  "keywords": ["observability", "telemetry", "ai-agents", "llm", "opentelemetry", "monitoring", "tracing"],
+  "license": "MIT"
+}
